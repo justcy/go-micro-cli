@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"sync"
 	"text/template"
 	"time"
 
@@ -18,6 +19,8 @@ import (
 )
 
 var (
+	onceBefore sync.Once
+
 	defaultFlags = []cli.Flag{
 		&cli.StringFlag{
 			Name:    "-t",
@@ -159,6 +162,14 @@ func addFileToTree(root treeprint.Tree, file string) {
 		curr.AddNode(split[len(split)-1])
 	}
 }
+func createTemplate() {
+	fmt.Println("create template ...")
+	//@todo 将模板文件写入到~/.mc/template目录下
+}
+func Before(ctx *cli.Context) error {
+	onceBefore.Do(createTemplate)
+	return nil
+}
 
 func Run(ctx *cli.Context) error {
 	dir := ctx.Args().First()
@@ -231,5 +242,6 @@ func init() {
 		Flags:       defaultFlags,
 		Description: `'mc new' scaffolds a new service skeleton. Example: 'mc new helloworld && cd helloworld'`,
 		Action:      Run,
+		Before:      Before,
 	})
 }
