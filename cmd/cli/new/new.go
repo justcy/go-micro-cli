@@ -215,6 +215,7 @@ func Run(ctx *cli.Context) error {
 		UseGoPath: false,
 		Files: []file{
 			{"main.go", tmpl.MainSRV},
+			{"client.go", tmpl.MainClientSRV},
 			{"generate.go", tmpl.GenerateFile},
 			{"handler/" + dir + ".go", tmpl.HandlerSRV},
 			{"subscriber/" + dir + ".go", tmpl.SubscriberSRV},
