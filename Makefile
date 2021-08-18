@@ -13,7 +13,7 @@ SRC_DIR=$(GOPATH)/src
 
 all: clean build
 build:
-	go build -a -installsuffix cgo -ldflags "-s -w ${LDFLAGS}" -o $(NAME)
+	go build -a -installsuffix cgo -ldflags "-s -w ${LDFLAGS}" -o ~/bin/$(NAME)
 test: vet
 	go test -v ./...
 .PHONY: clean
