@@ -13,7 +13,9 @@ import (
 	"github.com/asim/go-micro/v3/registry"
 
 )
-
+var(
+	Address=":1234"
+)
 func main() {
 	// Create service
 	reg := consul.NewRegistry(func(options *registry.Options) {
@@ -22,6 +24,7 @@ func main() {
 	service := micro.NewService(
 		micro.Name("{{lower .Alias}}"),
 		micro.Version("latest"),
+		micro.Address(Address),
 		micro.Registry(reg),
 	)
 	// Initialise service
